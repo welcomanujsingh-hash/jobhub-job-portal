@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="JobHub - a modern JavaScript job portal project">
+  <title>JobHub | Job Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="logo" href="#">Job<span>Hub</span></a>
+      <nav>
+        <a href="#jobs">Find Jobs</a>
+        <a href="#saved">Saved</a>
+        <a href="#about">About</a>
+      </nav>
+      <button class="post-btn" id="postJobBtn">Post a Job</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-content">
+        <div>
+          <p class="eyebrow">YOUR NEXT OPPORTUNITY</p>
+          <h1>Find a job you<br><span>actually love.</span></h1>
+          <p class="hero-text">Search thousands of opportunities from growing startups and leading companies.</p>
+        </div>
+        <div class="search-card">
+          <div class="search-row">
+            <label>
+              <span>🔎</span>
+              <input id="searchInput" type="search" placeholder="Job title, skill or keyword">
+            </label>
+            <label>
+              <span>📍</span>
+              <input id="locationInput" type="search" placeholder="City or remote">
+            </label>
+            <button id="searchBtn">Search Jobs</button>
+          </div>
+          <div class="quick-filters">
+            <button class="chip active" data-category="All">All</button>
+            <button class="chip" data-category="Software">Software</button>
+            <button class="chip" data-category="Data">Data</button>
+            <button class="chip" data-category="Design">Design</button>
+            <button class="chip" data-category="Marketing">Marketing</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container stats" id="about">
+      <div><strong id="totalJobs">0</strong><span>Jobs available</span></div>
+      <div><strong id="remoteJobs">0</strong><span>Remote jobs</span></div>
+      <div><strong id="companyCount">0</strong><span>Companies</span></div>
+      <div><strong id="savedCount">0</strong><span>Saved jobs</span></div>
+    </section>
+
+    <section class="container jobs-section" id="jobs">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">OPPORTUNITIES</p>
+          <h2>Latest jobs</h2>
+        </div>
+        <select id="sortSelect" aria-label="Sort jobs">
+          <option value="latest">Latest</option>
+          <option value="salaryHigh">Highest salary</option>
+          <option value="company">Company A-Z</option>
+        </select>
+      </div>
+
+      <div class="layout">
+        <aside class="filters">
+          <h3>Filters</h3>
+          <label>Job type
+            <select id="typeFilter">
+              <option value="All">All types</option>
+              <option>Full-time</option>
+              <option>Part-time</option>
+              <option>Internship</option>
+              <option>Contract</option>
+            </select>
+          </label>
+          <label>Experience
+            <select id="experienceFilter">
+              <option value="All">Any experience</option>
+              <option>Fresher</option>
+              <option>0-2 years</option>
+              <option>2-5 years</option>
+              <option>5+ years</option>
+            </select>
+          </label>
+          <label>Work mode
+            <select id="modeFilter">
+              <option value="All">All modes</option>
+              <option>Remote</option>
+              <option>Hybrid</option>
+              <option>On-site</option>
+            </select>
+          </label>
+          <button class="clear-btn" id="clearFilters">Clear filters</button>
+        </aside>
+
+        <div class="results">
+          <div class="result-top">
+            <span id="resultText">Showing jobs</span>
+            <span class="live-dot">● Live listings</span>
+          </div>
+          <div id="jobList"></div>
+          <div class="empty hidden" id="emptyState">
+            <div>🔍</div>
+            <h3>No jobs found</h3>
+            <p>Try another keyword, location, or filter.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="jobModal">
+    <div class="modal-box">
+      <button class="close" data-close="jobModal">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="applyModal">
+    <div class="modal-box small">
+      <button class="close" data-close="applyModal">×</button>
+      <p class="eyebrow">APPLICATION</p>
+      <h2>Apply for <span id="applyJobTitle"></span></h2>
+      <form id="applyForm">
+        <input id="applicantName" required placeholder="Full name">
+        <input id="applicantEmail" required type="email" placeholder="Email address">
+        <input id="applicantPhone" required type="tel" placeholder="Phone number">
+        <input id="resumeLink" placeholder="Resume link (optional)">
+        <textarea id="coverLetter" rows="5" placeholder="Short cover note"></textarea>
+        <button class="primary full" type="submit">Submit Application</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="postModal">
+    <div class="modal-box small">
+      <button class="close" data-close="postModal">×</button>
+      <p class="eyebrow">DEMO FEATURE</p>
+      <h2>Post a job</h2>
+      <form id="postForm">
+        <input id="newTitle" required placeholder="Job title">
+        <input id="newCompany" required placeholder="Company">
+        <input id="newLocation" required placeholder="Location">
+        <select id="newType">
+          <option>Full-time</option><option>Internship</option><option>Part-time</option><option>Contract</option>
+        </select>
+        <select id="newMode">
+          <option>Remote</option><option>Hybrid</option><option>On-site</option>
+        </select>
+        <input id="newSalary" placeholder="Salary, e.g. ₹5-8 LPA">
+        <button class="primary full" type="submit">Publish Job</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <footer><div class="container">JobHub • JavaScript Portfolio Project • Built with HTML, CSS & JavaScript</div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
